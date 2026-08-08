@@ -1,0 +1,904 @@
+```css
+@charset "UTF-8";
+
+/* =========================================================
+   Global
+   ========================================================= */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    background-color: #2a133d;
+}
+
+body,
+body * {
+    font-family: "Tahoma", sans-serif;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+    content: "";
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input[type="text"] {
+    background-color: #fff;
+    border: 1px inset #aaa;
+    color: #000;
+}
+
+
+/* =========================================================
+   Fonts
+   ========================================================= */
+
+@font-face {
+    font-family: "Tahoma";
+    src:
+        url("./font/Tahoma/Tahoma.eot#iefix") format("embedded-opentype"),
+        url("./font/Tahoma/Tahoma.woff") format("woff"),
+        url("./font/Tahoma/Tahoma.ttf") format("truetype"),
+        url("./font/Tahoma/Tahoma.svg#Tahoma") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* =========================================================
+   Pages
+   ========================================================= */
+
+.page {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+#content {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #452066;
+    background-image:
+        url("./img/desktop/logo.png"),
+        url("./img/desktop/bg.png");
+    background-position:
+        top left,
+        center;
+    background-repeat: no-repeat;
+}
+
+#ap_iframe {
+    position: absolute;
+    z-index: 9999;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   Generic XP-style components
+   ========================================================= */
+
+.xp_dialog,
+.message_cont,
+.xp_bubble,
+.bubble {
+    background: #ffffe1;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 9px;
+}
+
+.xp_textbox,
+#login_error,
+#login_readme,
+#login_name,
+#login_room {
+    position: absolute;
+    padding: 4px 3px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    background: #fff;
+    color: #000;
+    box-shadow: 2px 2px 2px #13316f;
+}
+
+
+/* =========================================================
+   Bonzi canvas / character
+   ========================================================= */
+
+#bonzi_canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bonzi {
+    position: fixed;
+    top: 0;
+    left: 0;
+    user-select: none;
+}
+
+.bonzi > canvas,
+.bonzi_placeholder {
+    position: absolute;
+}
+
+
+/* =========================================================
+   Speech bubbles
+   ========================================================= */
+
+.bubble {
+    position: absolute;
+    width: 197px;
+    padding: 0;
+}
+
+.bubble::after {
+    content: "";
+    position: absolute;
+}
+
+.bubble-content {
+    position: relative;
+    max-height: 175px;
+    padding: 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 14px;
+    font-smooth: never;
+    -webkit-font-smoothing: none;
+    user-select: text;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+.bubble-left {
+    top: 40px;
+    right: -45px;
+}
+
+.bubble-left::after {
+    top: 12px;
+    right: -22px;
+    width: 22px;
+    height: 14px;
+    background-image: url("./img/bonzi/bubble_tail_l.png");
+}
+
+.bubble-right {
+    top: 40px;
+    left: 155px;
+}
+
+.bubble-right::after {
+    top: 12px;
+    left: -22px;
+    width: 22px;
+    height: 14px;
+    background-image: url("./img/bonzi/bubble_tail_r.png");
+}
+
+.bubble-bottom {
+    top: 156px;
+}
+
+.bubble-bottom::after {
+    top: -22px;
+    left: 26px;
+    width: 28px;
+    height: 22px;
+    background-image: url("./img/bonzi/bubble_tail_b.png");
+}
+
+.bubble-top {
+    bottom: 4px;
+}
+
+.bubble-top::after {
+    left: 110px;
+    width: 28px;
+    height: 22px;
+    background-image: url("./img/bonzi/bubble_tail_t.png");
+}
+
+.bonzi_name {
+    position: absolute;
+    padding: 8px;
+    border: 1px solid #000;
+    border-radius: 9px;
+    background: #ffffe1;
+    color: #000;
+    font-size: 12px;
+}
+
+.bubble_greentext {
+    color: #789922;
+}
+
+
+/* =========================================================
+   Standard desktop theme
+   ========================================================= */
+
+#chat_bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 30px;
+    background-image: url("./img/desktop/taskbar.png");
+    background-size: 100% 100%;
+}
+
+#chat_tray {
+    width: 22px;
+    padding-top: 3px;
+    padding-left: 7px;
+    vertical-align: middle;
+    background-image:
+        url("./img/desktop/notif_left.png"),
+        url("./img/desktop/notif.png");
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size:
+        5px 30px,
+        100% 100%;
+}
+
+.chat_bar_top {
+    top: 0;
+}
+
+.tray_btn {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 2px 0;
+}
+
+#btn_tile {
+    background-image: url("./img/desktop/tile.png");
+}
+
+#chat_send {
+    width: 100px;
+    box-sizing: border-box;
+    padding-left: 35px;
+    background-image: url("./img/desktop/start.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: #fff;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
+    user-select: none;
+}
+
+#chat_send:hover {
+    background-position: 0 -33px;
+}
+
+#chat_send:active {
+    background-position: 0 -67px;
+}
+
+#chat_message_cont {
+    padding: 4px;
+}
+
+#chat_message {
+    width: 100%;
+}
+
+#room_info {
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+    padding: 7px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 125%;
+    text-align: right;
+    user-select: text;
+}
+
+
+/* =========================================================
+   Vaporwave theme
+   ========================================================= */
+
+body.vaporwave #content {
+    background-color: #008080;
+    background-image:
+        url("./img/desktop.vaporwave/logo.png"),
+        url("./img/desktop.vaporwave/bg.png");
+    background-position:
+        top left,
+        center;
+    background-repeat: no-repeat;
+}
+
+body.vaporwave #chat_bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 28px;
+    background-image: url("./img/desktop.vaporwave/taskbar.png");
+    background-size: 100% 100%;
+}
+
+body.vaporwave #chat_tray {
+    width: 22px;
+    padding-top: 3px;
+    padding-left: 7px;
+    vertical-align: middle;
+    background-image:
+        url("./img/desktop.vaporwave/notif_left.png"),
+        url("./img/desktop.vaporwave/notif_right.png"),
+        url("./img/desktop.vaporwave/notif.png");
+    background-position:
+        left,
+        right,
+        left;
+    background-repeat: no-repeat;
+    background-size:
+        5px 28px,
+        3px 28px,
+        100% 100%;
+}
+
+body.vaporwave #btn_tile {
+    background-image: url("./img/desktop.vaporwave/tile.png");
+}
+
+body.vaporwave #chat_send {
+    width: 58px;
+    box-sizing: border-box;
+    padding-left: 21px;
+    background-image: url("./img/desktop.vaporwave/start.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: #000;
+    font-family: "MS Sans Serif", Tahoma, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: none;
+    text-transform: capitalize;
+}
+
+body.vaporwave #chat_send:hover {
+    background-position: 0 -28px;
+}
+
+body.vaporwave #chat_send:active {
+    background-position: 0 -56px;
+}
+
+
+/* =========================================================
+   Login screen
+   ========================================================= */
+
+#page_login {
+    background-color: #8b5adc;
+    background-image:
+        url("./img/logon/logo.png"),
+        url("./img/logon/top.png"),
+        url("./img/logon/bottom.png"),
+        url("./img/logon/topleft.png"),
+        url("./img/logon/divider.png");
+    background-position:
+        center,
+        top,
+        bottom,
+        top left,
+        center;
+    background-repeat: no-repeat;
+    background-size:
+        auto,
+        100% 100px,
+        100% 122px,
+        auto,
+        1px 100%;
+}
+
+#login_apps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 16px;
+}
+
+#login_card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 353px;
+    height: 70px;
+    margin-top: -35px;
+    margin-left: 20px;
+    box-sizing: border-box;
+    background-image: url("./img/logon/card.png");
+}
+
+#login_error {
+    position: absolute;
+    top: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    color: #d03b3b;
+    font-size: 12px;
+}
+
+#login_readme {
+    left: 50%;
+    bottom: 20%;
+    width: auto;
+    padding: 12px;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #444;
+}
+
+#login_name,
+#login_room {
+    left: 16px;
+    width: 160px;
+    box-sizing: border-box;
+}
+
+#login_name {
+    top: 8px;
+    height: 28px;
+    font-size: 14px;
+}
+
+#login_room {
+    top: 43px;
+    height: 18px;
+    font-size: 12px;
+}
+
+#login_go {
+    position: absolute;
+    top: 24px;
+    left: 185px;
+    width: 20px;
+    height: 20px;
+    background-image: url("./img/logon/go.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#login_go:hover {
+    background-position: 0 -20px;
+}
+
+#login_go:active {
+    background-position: 0 -40px;
+}
+
+#login_load {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 35px;
+    margin-left: 23px;
+    color: #fff;
+    font-size: 35px;
+    font-style: italic;
+    font-weight: bold;
+    line-height: 100%;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#login_version {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    color: #fff;
+    font-size: 16px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================================================
+   Error / ban / unsupported pages
+   ========================================================= */
+
+.message_cont {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    max-width: 512px;
+    height: auto;
+    max-height: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    overflow: auto;
+    transform: translate(-50%, -50%);
+}
+
+#page_error,
+#page_ban,
+#page_unsupp {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================================================
+   Login responsive behavior
+   ========================================================= */
+
+@media screen and (max-height: 550px) {
+    #page_login {
+        background-image:
+            url("./img/logon/logo.png"),
+            url("./img/logon/topleft.png");
+        background-position:
+            center,
+            0 -100px;
+        background-size:
+            auto,
+            auto;
+    }
+
+    #login_readme {
+        bottom: 10%;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    #login_apps > a:not(:first-child) {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    #login_apps {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 300px) {
+    #login_readme,
+    #login_version {
+        display: none;
+    }
+}
+
+@media screen and (max-height: 400px) and (max-width: 560px) {
+    #login_readme {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    #page_login {
+        background-image:
+            url("./img/logon/logo.mobile.png"),
+            url("./img/logon/topleft.png");
+        background-position:
+            center,
+            0 -100px;
+        background-size:
+            auto,
+            auto;
+    }
+
+    #login_card {
+        width: 223px;
+        height: 70px;
+        margin-top: 40px;
+        margin-left: -112px;
+        background-image: url("./img/logon/card.mobile.png");
+    }
+
+    #login_readme {
+        bottom: 10%;
+    }
+
+    #login_load {
+        left: 50%;
+        margin-top: 45px;
+        margin-left: 0;
+        transform: translateX(-50%);
+    }
+}
+
+
+/* =========================================================
+   jQuery Context Menu
+   ========================================================= */
+
+.context-menu-icon.context-menu-hover::before {
+    color: #fff;
+}
+
+.context-menu-icon.context-menu-disabled::before {
+    color: #8c8c8c;
+}
+
+.context-menu-icon.context-menu-icon--fa {
+    display: list-item;
+}
+
+.context-menu-icon.context-menu-icon--fa.context-menu-hover::before {
+    color: #fff;
+}
+
+.context-menu-icon.context-menu-icon--fa.context-menu-disabled::before {
+    color: #8c8c8c;
+}
+
+.context-menu-icon.context-menu-icon--fa span {
+    font-family: sans-serif;
+}
+
+.context-menu-list {
+    position: absolute;
+    display: inline-block;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 2px;
+    background: #fff;
+    border: 1px solid #aca899;
+    border-radius: 0;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    color: #000;
+    font-family: inherit;
+    font-size: 11px;
+    list-style-type: none;
+}
+
+.context-menu-item {
+    position: relative;
+    padding: 5px 22px;
+    background-color: #fff;
+    color: #000;
+    user-select: none;
+}
+
+.context-menu-item.context-menu-hover {
+    background-color: #316ac5;
+    color: #fff;
+    cursor: pointer;
+}
+
+.context-menu-item.context-menu-disabled {
+    background-color: #fff;
+    color: #8c8c8c;
+    cursor: default;
+}
+
+.context-menu-separator {
+    margin: 1px 2.5px;
+    padding: 0;
+    border-bottom: 1px solid #aca899;
+}
+
+.context-menu-item > label > input,
+.context-menu-item > label > textarea {
+    user-select: text;
+}
+
+.context-menu-input.context-menu-hover {
+    background-color: #eee;
+    cursor: default;
+}
+
+.context-menu-submenu::after {
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
+    width: 0;
+    height: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 0.25em 0 0.25em 0.25em;
+    border-color:
+        transparent
+        transparent
+        transparent
+        #000;
+    content: "";
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   Context menu inputs
+   ========================================================= */
+
+.context-menu-item.context-menu-input {
+    padding: 0.3em 0.6em;
+}
+
+.context-menu-input > label > * {
+    vertical-align: top;
+}
+
+.context-menu-input > label > input[type="checkbox"],
+.context-menu-input > label > input[type="radio"] {
+    position: relative;
+    top: 0.12em;
+    margin-right: 0.4em;
+}
+
+.context-menu-input > label {
+    margin: 0;
+}
+
+.context-menu-input > label,
+.context-menu-input > label > input[type="text"],
+.context-menu-input > label > textarea,
+.context-menu-input > label > select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.context-menu-input > label > textarea {
+    height: 7em;
+}
+
+.context-menu-item > .context-menu-list {
+    display: none;
+    top: 0.3em;
+    right: -0.3em;
+}
+
+.context-menu-item.context-menu-visible > .context-menu-list {
+    display: block;
+}
+
+.context-menu-accesskey {
+    text-decoration: underline;
+}
+```
