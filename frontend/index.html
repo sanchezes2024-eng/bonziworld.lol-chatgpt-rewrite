@@ -2,17 +2,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     >
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="theme-color"
+        content="#ffffff"
+    >
 
     <title>BonziWORLD</title>
+
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="./style.css"
+    >
 
     <link
         rel="icon"
@@ -21,12 +34,9 @@
         href="./img/favicon.png"
     >
 
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
-
-    <!-- Libraries -->
+    <!-- =====================================================
+         External libraries
+         ===================================================== -->
 
     <script src="./lib/easeljs.min.js"></script>
     <script src="./lib/preloadjs-0.6.2.min.js"></script>
@@ -35,15 +45,21 @@
     <script src="./lib/socket.io-1.4.5.js"></script>
     <script src="./lib/speakjs/speakClient.js"></script>
     <script src="./lib/jquery.contextMenu.min.js"></script>
+
 </head>
 
 <body>
+
+    <!-- =====================================================
+         Main application container
+         ===================================================== -->
 
     <div id="content">
 
         <!-- Room information -->
 
         <div id="room_info">
+
             <span>
                 Room ID -
                 <span class="room_id">???</span>
@@ -55,18 +71,27 @@
                 This room is public.
             </span>
 
-            <span id="room_private">
+            <span
+                id="room_private"
+                style="display:none"
+            >
                 This room is private.
             </span>
 
-            <span id="room_owner">
+            <span
+                id="room_owner"
+                style="display:none"
+            >
                 <br>
                 You are the owner of this room.
             </span>
+
         </div>
 
 
-        <!-- Bonzi canvas -->
+        <!-- =================================================
+             Bonzi rendering canvas
+             ================================================= -->
 
         <canvas
             id="bonzi_canvas"
@@ -75,7 +100,9 @@
         ></canvas>
 
 
-        <!-- Chat bar -->
+        <!-- =================================================
+             Chat bar
+             ================================================= -->
 
         <table id="chat_bar">
             <tbody>
@@ -95,10 +122,12 @@
                     </td>
 
                     <td id="chat_tray">
+
                         <div
                             id="btn_tile"
                             class="tray_btn"
                         ></div>
+
                     </td>
 
                 </tr>
@@ -106,26 +135,38 @@
         </table>
 
 
-        <!-- Login page -->
+        <!-- =================================================
+             Login page
+             ================================================= -->
 
-        <div id="page_login" class="page">
+        <div
+            id="page_login"
+            class="page"
+        >
 
             <div
                 id="login_apps"
                 class="app_showcase"
             ></div>
 
+
             <div id="login_readme">
+
                 Make sure to check out the
+
                 <a
                     id="readme"
                     href="readme.html"
                     target="_blank"
+                    rel="noopener noreferrer"
                 >
                     README
                 </a>
+
                 before use.
+
             </div>
+
 
             <div
                 id="login_card"
@@ -155,9 +196,11 @@
 
             </div>
 
+
             <div id="login_load">
                 loading
             </div>
+
 
             <div id="login_version">
                 Version 6.9
@@ -166,7 +209,9 @@
         </div>
 
 
-        <!-- Connection error -->
+        <!-- =================================================
+             Generic connection error
+             ================================================= -->
 
         <div
             id="page_error"
@@ -179,7 +224,10 @@
                 class="message_cont"
             >
 
-                <img src="./img/error/logo.png">
+                <img
+                    src="./img/error/logo.png"
+                    alt=""
+                >
 
                 <br><br>
 
@@ -190,14 +238,17 @@
 
                 <br>
 
-                There was an error and you were disconnected
-                from the server. This can happen if your internet
-                connection stopped briefly or your device went to sleep.
+                Nah, but seriously there was an error and
+                you got disconnected from the server.
+
+                Chances are, your internet just died out
+                for a brief moment or your device went to sleep.
+
+                Otherwise the server just screwed up.
 
                 <br><br>
 
-                Try reloading the page. If it still does not work,
-                the server may be unavailable.
+                Try and reload the page.
 
                 <br><br>
 
@@ -213,12 +264,16 @@
                 Room ID -
                 <span class="room_id">???</span>
 
+                <br>
+
             </div>
 
         </div>
 
 
-        <!-- Alt limit error -->
+        <!-- =================================================
+             Connection limit error
+             ================================================= -->
 
         <div
             id="page_error105"
@@ -226,14 +281,21 @@
             style="display:none"
         >
 
-            <div class="message_cont">
+            <div
+                id="error105_cont"
+                class="message_cont"
+            >
 
-                <img src="./img/error/logo.png">
+                <img
+                    src="./img/error/logo.png"
+                    alt=""
+                >
 
                 <br><br>
 
                 <h1>
-                    BonziWORLD.exe doesn't want to accept your connection. (105)
+                    BonziWORLD.exe doesn't want to accept
+                    your connection. (105)
                 </h1>
 
                 <br>
@@ -244,15 +306,21 @@
 
                 <br><br>
 
-                Sorry, but you exceeded the alt limit for this IP.
-                This limit exists to prevent the server from being flooded.
+                Sorry, but you exceeded the alt limit
+                for this IP.
+
+                <br><br>
+
+                This is to stop the server from being flooded.
 
             </div>
 
         </div>
 
 
-        <!-- Ban page -->
+        <!-- =================================================
+             Ban page
+             ================================================= -->
 
         <div
             id="page_ban"
@@ -265,11 +333,16 @@
                 class="message_cont"
             >
 
-                <img src="./img/ban/logo.png">
+                <img
+                    src="./img/ban/logo.png"
+                    alt=""
+                >
 
                 <br><br>
 
-                <h1>You got banned!</h1>
+                <h1>
+                    You got banned!
+                </h1>
 
                 <br>
 
@@ -286,7 +359,9 @@
         </div>
 
 
-        <!-- Kick page -->
+        <!-- =================================================
+             Kick page
+             ================================================= -->
 
         <div
             id="page_kick"
@@ -299,11 +374,16 @@
                 class="message_cont"
             >
 
-                <img src="./img/ban/logo.png">
+                <img
+                    src="./img/ban/logo.png"
+                    alt=""
+                >
 
                 <br><br>
 
-                <h1>You got kicked!</h1>
+                <h1>
+                    You got kicked!
+                </h1>
 
                 <br>
 
@@ -315,7 +395,9 @@
         </div>
 
 
-        <!-- Unsupported browser -->
+        <!-- =================================================
+             Unsupported platform page
+             ================================================= -->
 
         <div
             id="page_unsupp"
@@ -328,7 +410,10 @@
                 class="message_cont"
             >
 
-                <img src="./img/error/logo.png">
+                <img
+                    src="./img/error/logo.png"
+                    alt=""
+                >
 
                 <br><br>
 
@@ -338,16 +423,19 @@
 
                 <br>
 
-                Unfortunately, BonziWORLD cannot run in this browser
-                for the following reasons:
+                Unfortunately, BonziWORLD cannot run in
+                this browser for the following reasons:
+
+                <br>
 
                 <ul id="unsupp_reasons"></ul>
 
-                You can try downloading a BonziWORLD app
-                that works on your device or updating your browser.
+                You can try to download a BonziWORLD app
+                that works on your device, or update
+                your browser.
 
                 <div
-                    id="login_apps"
+                    id="unsupported_apps"
                     class="app_showcase"
                 ></div>
 
@@ -358,21 +446,36 @@
     </div>
 
 
-    <!-- Legacy titlebar -->
+    <!-- =====================================================
+         Legacy title bar
+         ===================================================== -->
 
     <div id="titlebar">
+
         <div id="minimize"></div>
+
         <div id="maximize"></div>
+
         <div id="close"></div>
+
     </div>
 
 
-    <!-- Advertisement element expected by script.js -->
+    <!-- =====================================================
+         Advertisement container
 
-    <ad></ad>
+         IMPORTANT:
+         script.js expects #ap_iframe.
+         ===================================================== -->
+
+    <ad id="ap_iframe"></ad>
 
 
-    <!-- Main application -->
+    <!-- =====================================================
+         Application JavaScript
+
+         This must load after the libraries above.
+         ===================================================== -->
 
     <script src="./script.js"></script>
 
